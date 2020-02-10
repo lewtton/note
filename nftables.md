@@ -1,10 +1,8 @@
-## 安装
-
+### 安装
 apt-get install nftables conntrackd netfilter-persistent
 apt-get purge iptables
 
-## 地址族确定要处理的数据包的类型。在 nftables 中有六个地址族，它们是：
-
+### 地址族确定要处理的数据包的类型。在 nftables 中有六个地址族，它们是：
 ip
 ipv6
 inet
@@ -38,7 +36,7 @@ nft delete table inet filter
 #!/usr/sbin/nft -f
 
 flush ruleset
-...
+```
 table inet filter {
         chain input {
                 type filter hook input priority 0;
@@ -50,4 +48,4 @@ table inet filter {
                 type filter hook output priority 0;
         }
 }
-...
+```
