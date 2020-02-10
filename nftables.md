@@ -10,7 +10,7 @@ arp
 bridge
 netdev
 
-在 nftables 中，ipv4 和 ipv6 协议可以被合并为一个称为 inet 的单一地址族。因此，我们不需要指定两个规则：一个用于 ipv4，另一个用于 ipv6。如果未指定地址族，它将默认为 ip 协议，即 ipv4。我们感兴趣的领域是 inet 地址族，因为大多数家庭用户将使用 ipv4 或 ipv6 协议。
+在 nftables 中，ipv4 和 ipv6 协议可以被合并为一个称为 inet 的单一地址族。
 
 ### 典型的 nftables 规则包含三个部分：表、链和规则。
 
@@ -31,21 +31,24 @@ nft flush ruleset
 nft delete table inet filter
 /usr/sbin/nft -f /etc/nftables.conf
 ```
-像 iptables 一样，防火墙将包含三部分：输入（input）、转发（forward）和输出（output）
+### 防火墙包含三部分
+- 输入（input）
+- 转发（forward）
+- 输出（output）
 
 ```
-        (base) david@debian:~$ cat /etc/nftables.conf 
-        #!/usr/sbin/nft -f
-        flush ruleset
-        table inet filter {
-                chain input {
-                        type filter hook input priority 0;
-                }
-                chain forward {
-                        type filter hook forward priority 0;
-                }
-                chain output {
-                        type filter hook output priority 0;
-                }
+(base) david@debian:~$ cat /etc/nftables.conf 
+#!/usr/sbin/nft -f
+flush ruleset
+table inet filter {
+        chain input {
+                type filter hook input priority 0;
         }
+        chain forward {
+                type filter hook forward priority 0;
+        }
+        chain output {
+                type filter hook output priority 0;
+        }
+}
 ```
